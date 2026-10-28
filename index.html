@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Franelas de microdurazno al mayor para sublimación y DTF. Combina tallas y colores. Atención por WhatsApp.">
+  <title>Las Franelas Más Virales VE | Venta al Mayor</title>
+  <style>
+    :root {
+      --red: #e51d2a;
+      --blue: #0759a6;
+      --green: #25d366;
+      --ink: #171717;
+      --muted: #626262;
+      --line: #e6e6e6;
+      --surface: #ffffff;
+      --soft: #f6f7f8;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f4f5f6;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    body.modal-open { overflow: hidden; }
+
+    header {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      padding: 12px 18px;
+      text-align: center;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 2px 12px rgb(0 0 0 / 5%);
+    }
+    .logo {
+      margin: 0;
+      font-size: clamp(1.05rem, 2.4vw, 1.65rem);
+      font-weight: 900;
+      letter-spacing: .02em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .logo span { color: var(--green); }
+
+    main.image-container {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: #fff;
+    }
+    .image-container img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      object-fit: contain;
+    }
+
+    .buy-bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+      background: linear-gradient(to top, rgb(244 245 246 / 98%), rgb(244 245 246 / 82%));
+    }
+    .btn-buy {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: min(100%, 540px);
+      min-height: 54px;
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--red);
+      box-shadow: 0 8px 22px rgb(229 29 42 / 25%);
+      font: inherit;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 850;
+      letter-spacing: .02em;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .btn-buy:hover { background: #c91622; transform: translateY(-1px); }
+    .btn-buy:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid #80bfff;
+      outline-offset: 3px;
+    }
+
+    .shipping-strip {
+      width: min(100% - 28px, 900px);
+      margin: 20px auto 26px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      text-align: center;
+    }
+    .shipping-strip h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    .shipping-strip p { margin: 5px 0; color: #333; }
+    .shipping-strip strong { color: var(--blue); }
+
+    .legal-info {
+      width: min(100%, 900px);
+      margin: 0 auto 30px;
+      padding: 26px 20px;
+      background: #fff;
+      border-top: 1px solid var(--line);
+    }
+    .legal-info h2 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .legal-info ul { margin: 0; padding-left: 1.25rem; }
+    .legal-info li { margin: 0 0 8px; color: #4c4c4c; }
+    .info-message {
+      margin-top: 18px;
+      padding: 16px;
+      border-left: 4px solid var(--green);
+      border-radius: 8px;
+      background: #f0fdf4;
+      font-size: .92rem;
+    }
+    .info-message p { margin: 0 0 10px; }
+    .info-message p:last-child { margin-bottom: 0; }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      background: rgb(0 0 0 / 65%);
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { display: flex; }
+    .checkout-modal {
+      position: relative;
+      width: min(100%, 600px);
+      max-height: min(94dvh, 900px);
+      overflow-y: auto;
+      padding: 24px;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 20px 60px rgb(0 0 0 / 28%);
+      overscroll-behavior: contain;
+    }
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: #f1f1f1;
+      color: #333;
+      font-size: 1.7rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .modal-header { padding-right: 42px; margin-bottom: 20px; }
+    .modal-header h2 { margin: 0 0 4px; font-size: 1.25rem; line-height: 1.25; }
+    .modal-header p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .section-label {
+      margin: 20px 0 10px;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .offer-list { display: grid; gap: 10px; }
+    .offer-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 2px solid #e5e5e5;
+      border-radius: 13px;
+      background: #fff;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .offer-option.selected { border-color: var(--green); background: #f0fdf4; }
+    .offer-option input { width: 18px; height: 18px; accent-color: var(--green); flex: 0 0 auto; }
+    .offer-info { flex: 1; min-width: 0; }
+    .offer-title { display: block; font-weight: 800; }
+    .offer-subtitle { display: block; margin-top: 2px; color: var(--muted); font-size: .82rem; }
+    .offer-price { flex: 0 0 auto; font-size: 1.05rem; font-weight: 900; text-align: right; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { min-width: 0; margin-bottom: 13px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: .86rem; font-weight: 750; }
+    .required { color: var(--red); }
+    input, select, textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 12px;
+      border: 1px solid #d4d4d4;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 16px;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .help { display: block; margin-top: 5px; color: var(--muted); font-size: .78rem; }
+    .summary-box {
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--soft);
+    }
+    .summary-row { display: flex; justify-content: space-between; gap: 12px; margin: 5px 0; }
+    .summary-row span:last-child { font-weight: 750; text-align: right; }
+    .summary-row.total { margin-top: 12px; padding-top: 12px; border-top: 1px solid #d7d7d7; font-size: 1.12rem; font-weight: 900; }
+    .summary-note { margin: 10px 0 0; color: var(--muted); font-size: .78rem; }
+    .btn-submit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--green);
+      color: #073b1b;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .btn-submit:hover { background: #20bf5a; }
+    .form-error {
+      display: none;
+      margin: 10px 0;
+      padding: 11px 12px;
+      border-radius: 9px;
+      background: #fff0f0;
+      color: #a00012;
+      font-size: .88rem;
+      font-weight: 650;
+    }
+    .form-error.active { display: block; }
+    .modal-footer { margin-top: 14px; color: var(--muted); font-size: .78rem; text-align: center; }
+
+    @media (max-width: 600px) {
+      header { padding: 10px 12px; }
+      .buy-bar { padding-inline: 10px; }
+      .checkout-modal { padding: 22px 15px; border-radius: 16px; }
+      .form-grid { grid-template-columns: 1fr; gap: 0; }
+      .form-group.full { grid-column: auto; }
+      .offer-option { padding: 12px 10px; gap: 9px; }
+      .offer-price { font-size: .98rem; }
+      .shipping-strip { width: calc(100% - 20px); padding: 15px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="logo">LAS FRANELAS MÁS VIRALES <span>VE</span></h1>
+  </header>
+
+  <main class="image-container" aria-label="Catálogo y promociones de franelas">
+    <img src="PORTADA1.webp" alt="Fábrica de franelas de microdurazno de alta calidad en Caracas" fetchpriority="high">
+    <img src="PORTADA2.webp" alt="Promoción de franelas al mayor y precios de referencia" loading="lazy">
+    <img src="PORTADA3.webp" alt="Carta de colores disponibles para las franelas" loading="lazy">
+    <img src="PORTADA4.webp" alt="Tallas de franelas para damas, caballeros y niños" loading="lazy">
+    <img src="PORTADA5.webp" alt="Compra de franelas al mayor y servicio de delivery" loading="lazy">
+  </main>
+
+  <section class="shipping-strip" aria-labelledby="shipping-title">
+    <h2 id="shipping-title">Condiciones de entrega</h2>
+    <p><strong>Caracas:</strong> $3 para pedidos de 10 a 99 unidades.</p>
+    <p><strong>Caracas:</strong> delivery gratis desde 100 unidades inclusive.</p>
+    <p><strong>Miranda y La Guaira:</strong> consulta el costo de envío.</p>
+    <p><strong>Otros destinos:</strong> envío nacional por cotizar.</p>
+  </section>
+
+  <div class="buy-bar">
+    <button class="btn-buy" type="button" id="openCheckout">CONFIGURAR MI PEDIDO</button>
+  </div>
+
+  <section class="legal-info" aria-labelledby="info-title">
+    <h2 id="info-title">Información importante</h2>
+    <ul>
+      <li>La compra mínima es de 10 franelas.</li>
+      <li>El pago debe confirmarse antes del despacho.</li>
+      <li>En Caracas, el delivery cuesta $3 para pedidos de 10 a 99 unidades y es gratis desde 100 unidades inclusive.</li>
+      <li>Para Miranda y La Guaira, consulta el costo de entrega.</li>
+      <li>Los envíos nacionales y sus tarifas se confirman según el destino y el transportista.</li>
+      <li>Horario de atención indicado: lunes a viernes, de 9:00 a. m. a 5:00 p. m.</li>
+      <li>Confirma disponibilidad de colores y tallas antes de pagar.</li>
+      <li>Consulta las condiciones de cambios y devoluciones antes de confirmar tu compra.</li>
+    </ul>
+    <div class="info-message">
+      <p><strong>Para agilizar tu pedido:</strong> prepara la lista de cantidades, colores, tallas y tipo de prenda. La atención es por mensajes de WhatsApp; no envíes notas de voz ni realices llamadas si no están habilitadas.</p>
+      <p>Las franelas se entregan dobladas y en bolsa individual, según disponibilidad y condiciones de preparación.</p>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="checkoutModal" aria-hidden="true">
+    <section class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="close-btn" type="button" id="closeCheckout" aria-label="Cerrar formulario">&times;</button>
+      <div class="modal-header">
+        <h2 id="checkoutTitle">Configura tu pedido</h2>
+        <p>Elige el paquete y distribuye las unidades entre los colores y tallas que necesites. El pago se confirma antes del despacho.</p>
+      </div>
+
+      <form id="checkoutForm" novalidate>
+        <div class="section-label">1. Selecciona el paquete</div>
+        <div class="offer-list" role="radiogroup" aria-label="Paquete de franelas">
+          <label class="offer-option" data-qty="10">
+            <input type="radio" name="package" value="10">
+            <span class="offer-info">
+              <span class="offer-title">10 franelas — compra mínima</span>
+              <span class="offer-subtitle">$2,90 por unidad</span>
+            </span>
+            <span class="offer-price">$29</span>
+          </label>
+          <label class="offer-option selected" data-qty="100">
+            <input type="radio" name="package" value="100" checked>
+            <span class="offer-info">
+              <span class="offer-title">100 franelas — al mayor</span>
+              <span class="offer-subtitle">$2,90 por unidad · delivery gratis en Caracas</span>
+            </span>
+            <span class="offer-price">$290</span>
+          </label>
+          <label class="offer-option" data-qty="500">
+            <input type="radio" name="package" value="500">
+            <span class="offer-info">
+              <span class="offer-title">500 franelas — volumen mayorista</span>
+              <span class="offer-subtitle">$2,90 por unidad · delivery gratis en Caracas</span>
+            </span>
+            <span class="offer-price">$1.450</span>
+          </label>
+        </div>
+
+        <div class="section-label">2. Tus datos</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Nombre y apellido <span class="required">*</span></label>
+            <input id="name" name="name" autocomplete="name" required maxlength="100" placeholder="Tu nombre completo">
+          </div>
+          <div class="form-group">
+            <label for="phone">WhatsApp <span class="required">*</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="30" placeholder="Ej.: 0414 123 4567">
+          </div>
+          <div class="form-group full">
+            <label for="city">Zona de entrega <span class="required">*</span></label>
+            <select id="city" name="city" required>
+              <option value="Caracas">Caracas</option>
+              <option value="Miranda">Miranda — consultar costo</option>
+              <option value="La Guaira">La Guaira — consultar costo</option>
+              <option value="Otra zona de Venezuela">Otra zona de Venezuela — cotizar envío</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="address">Dirección y referencia <span class="required">*</span></label>
+            <textarea id="address" name="address" required maxlength="500" placeholder="Municipio, urbanización, calle, edificio o casa y punto de referencia"></textarea>
+          </div>
+        </div>
+
+        <div class="section-label">3. Distribución de las franelas</div>
+        <div class="form-group">
+          <label for="specs">Cantidad + color + talla + tipo de prenda <span class="required">*</span></label>
+          <textarea id="specs" name="specs" required maxlength="3000" placeholder="Ejemplo:&#10;20 BLANCO M CABALLERO&#10;30 NEGRO L CABALLERO&#10;25 BLANCO S DAMA&#10;25 AZUL XL CABALLERO"></textarea>
+          <small class="help">Escribe una combinación por línea. Usa cantidades enteras positivas. La suma debe ser exactamente igual al paquete seleccionado. Ejemplo: 20 BLANCO M CABALLERO.</small>
+        </div>
+
+        <div class="summary-box" aria-live="polite">
+          <div class="summary-row"><span>Paquete</span><span id="summaryPackage">100 franelas</span></div>
+          <div class="summary-row"><span>Unidades indicadas</span><span id="summaryUnits">Aún no validadas</span></div>
+          <div class="summary-row"><span>Productos</span><span id="summarySubtotal">$290</span></div>
+          <div class="summary-row"><span>Delivery</span><span id="summaryShipping">Gratis en Caracas</span></div>
+          <div class="summary-row total"><span>Total estimado</span><span id="summaryTotal">$290</span></div>
+          <p class="summary-note" id="summaryNote">El pago se confirma antes del despacho. El pedido queda sujeto a disponibilidad y confirmación por WhatsApp.</p>
+        </div>
+
+        <div class="form-error" id="formError" role="alert"></div>
+        <button type="submit" class="btn-submit">Continuar por WhatsApp</button>
+        <div class="modal-footer">No se realiza el pago en esta página. WhatsApp se abrirá con los datos del pedido para confirmar disponibilidad, pago y entrega.</div>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    "use strict";
+
+    // Verifica este número antes de publicar. Debe incluir código de país, solo dígitos.
+    const WHATSAPP_NUMBER = "584242674477";
+
+    const packages = {
+      10:  { quantity: 10,  price: 29 },
+      100: { quantity: 100, price: 290 },
+      500: { quantity: 500, price: 1450 }
+    };
+
+    const modal = document.getElementById("checkoutModal");
+    const form = document.getElementById("checkoutForm");
+    const openButton = document.getElementById("openCheckout");
+    const closeButton = document.getElementById("closeCheckout");
+    const packageInputs = [...document.querySelectorAll('input[name="package"]')];
+    const cityInput = document.getElementById("city");
+    const specsInput = document.getElementById("specs");
+    const errorBox = document.getElementById("formError");
+
+    function selectedPackage() {
+      const selected = packageInputs.find(input => input.checked);
+      return packages[Number(selected?.value)] || packages[100];
+    }
+
+    function getShipping(quantity, city) {
+      if (city === "Caracas") {
+        return quantity >= 100
+          ? { label: "Gratis en Caracas", amount: 0, quote: false }
+          : { label: "$3", amount: 3, quote: false };
+      }
+      if (city === "Miranda" || city === "La Guaira") {
+        return { label: "Por consultar", amount: null, quote: true };
+      }
+      return { label: "Por cotizar", amount: null, quote: true };
+    }
+
+    function formatMoney(amount) {
+      return "$" + Number(amount).toLocaleString("es-VE", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+    }
+
+    function parseSpecs(text) {
+      const lines = text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+      if (!lines.length) {
+        return { valid: false, total: 0, lines: [], message: "Escribe al menos una combinación de cantidad, color, talla y tipo de prenda." };
+      }
+
+      const parsed = [];
+      for (let i = 0; i < lines.length; i++) {
+        // Formato flexible: "20 BLANCO M CABALLERO" o "20, BLANCO, M, CABALLERO"
+        const normalized = lines[i].replace(/,/g, " ").replace(/\s+/g, " ").trim();
+        const match = normalized.match(/^(\d+)\s+(.+)$/);
+        if (!match) {
+          return { valid: false, total: 0, lines, message: `Revisa la línea ${i + 1}. Usa el formato: cantidad color talla tipo de prenda.` };
+        }
+        const quantity = Number(match[1]);
+        const detail = match[2].trim();
+        if (!Number.isSafeInteger(quantity) || quantity <= 0 || !detail) {
+          return { valid: false, total: 0, lines, message: `La cantidad de la línea ${i + 1} debe ser un número entero mayor que cero.` };
+        }
+        parsed.push({ quantity, detail, original: lines[i] });
+      }
+      const total = parsed.reduce((sum, item) => sum + item.quantity, 0);
+      return { valid: true, total, lines: parsed, message: "" };
+    }
+
+    function updateSummary() {
+      const pack = selectedPackage();
+      const city = cityInput.value;
+      const shipping = getShipping(pack.quantity, city);
+      const specs = parseSpecs(specsInput.value);
+
+      document.querySelectorAll(".offer-option").forEach(label => {
+        const input = label.querySelector("input");
+        label.classList.toggle("selected", Boolean(input?.checked));
+      });
+
+      document.getElementById("summaryPackage").textContent = `${pack.quantity} franelas`;
+      document.getElementById("summaryUnits").textContent = specs.valid ? `${specs.total} unidades` : "Aún no validadas";
+      document.getElementById("summarySubtotal").textContent = formatMoney(pack.price);
+      document.getElementById("summaryShipping").textContent = shipping.label;
+      document.getElementById("summaryTotal").textContent = shipping.quote
+        ? `${formatMoney(pack.price)} + envío por cotizar`
+        : formatMoney(pack.price + shipping.amount);
+
+      const note = document.getElementById("summaryNote");
+      if (shipping.quote) {
+        note.textContent = "El costo final de envío debe confirmarse por WhatsApp antes de realizar el pago.";
+      } else {
+        note.textContent = "El pago se confirma antes del despacho. El pedido queda sujeto a disponibilidad y confirmación por WhatsApp.";
+      }
+
+      if (specs.valid && specs.total !== pack.quantity) {
+        showError(`Has indicado ${specs.total} unidades, pero seleccionaste un paquete de ${pack.quantity}. Ajusta las cantidades para que coincidan.`);
+      } else {
+        clearError();
+      }
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.classList.add("active");
+    }
+    function clearError() {
+      errorBox.textContent = "";
+      errorBox.classList.remove("active");
+    }
+
+    function openModal() {
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      setTimeout(() => document.getElementById("name").focus(), 50);
+    }
+    function closeModal() {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      openButton.focus();
+    }
+
+    openButton.addEventListener("click", openModal);
+    closeButton.addEventListener("click", closeModal);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && modal.classList.contains("active")) closeModal();
+    });
+
+    packageInputs.forEach(input => input.addEventListener("change", updateSummary));
+    cityInput.addEventListener("change", updateSummary);
+    specsInput.addEventListener("input", updateSummary);
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      clearError();
+
+      if (!form.reportValidity()) return;
+
+      const pack = selectedPackage();
+      const shipping = getShipping(pack.quantity, cityInput.value);
+      const specs = parseSpecs(specsInput.value);
+      if (!specs.valid) {
+        showError(specs.message);
+        specsInput.focus();
+        return;
+      }
+      if (specs.total !== pack.quantity) {
+        showError(`La suma de tus especificaciones es ${specs.total}, pero el paquete seleccionado es de ${pack.quantity} unidades. Corrige las cantidades antes de continuar.`);
+        specsInput.focus();
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const city = cityInput.value;
+      const address = document.getElementById("address").value.trim();
+
+      if (name.length < 2) {
+        showError("Escribe tu nombre y apellido.");
+        document.getElementById("name").focus();
+        return;
+      }
+      if (phone.replace(/\D/g, "").length < 7) {
+        showError("Revisa el número de WhatsApp que escribiste.");
+        document.getElementById("phone").focus();
+        return;
+      }
+
+      const total = shipping.quote ? null : pack.price + shipping.amount;
+      const messageLines = [
+        "Hola, quiero solicitar un pedido de franelas al mayor.",
+        "",
+        `Paquete: ${pack.quantity} franelas`,
+        `Precio de productos: ${formatMoney(pack.price)}`,
+        `Zona de entrega: ${city}`,
+        `Delivery: ${shipping.label}`,
+        `Total estimado: ${total === null ? formatMoney(pack.price) + " + envío por cotizar" : formatMoney(total)}`,
+        "",
+        "Distribución de tallas y colores:",
+        ...specs.lines.map(item => `- ${item.original}`),
+        "",
+        `Nombre: ${name}`,
+        `WhatsApp de contacto: ${phone}`,
+        `Dirección y referencia: ${address}`,
+        "",
+        "Entiendo que el pago debe confirmarse antes del despacho. Por favor, confirma disponibilidad, datos de pago y costo final de envío."
+      ];
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageLines.join("\n"))}`;
+      const popup = window.open(whatsappUrl, "_blank");
+      if (!popup) {
+        showError("El navegador bloqueó la ventana de WhatsApp. Permite las ventanas emergentes e inténtalo de nuevo.");
+        return;
+      }
+      // Evita que la pestaña abierta pueda controlar esta página.
+      popup.opener = null;
+      closeModal();
+    });
+
+    updateSummary();
+  </script>
+</body>
+</html>
